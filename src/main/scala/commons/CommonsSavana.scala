@@ -1,6 +1,6 @@
 
-package org.svn.ingestion
-package com.savana.ingestion.commons
+package com.savana.ingestion
+package commons
 
 trait CommonsSavana extends EnumsSavana {
 
@@ -15,9 +15,6 @@ trait CommonsSavana extends EnumsSavana {
       def argTypes = args.map(_.getClass)
       def method = klass.getClass.getMethod(methodName, argTypes: _*)
       method.invoke(klass,args: _*)
-    }
-    def exist(methodName:String,args:AnyRef*):Boolean = {
-      klass.getClass.getMethods.exists(x => x.getName.equalsIgnoreCase(methodName))
     }
   }
 

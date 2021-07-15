@@ -1,5 +1,4 @@
-package org.svn.ingestion
-
+package com.savana.ingestion
 
 import com.savana.ingestion.commons.CommonsSavana
 import com.savana.ingestion.fnc.Functional

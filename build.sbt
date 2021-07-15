@@ -4,7 +4,7 @@ version := "0.1"
 
 scalaVersion := "2.12.13"
 
-idePackagePrefix := Some("org.svn.ingestion")
+idePackagePrefix := Some("com.savana.ingestion")
 
 libraryDependencies += "org.apache.spark" % "spark-sql_2.12" % "3.1.1" % "provided"
 libraryDependencies += "org.apache.spark" % "spark-hive_2.12" % "3.1.1" % "provided"

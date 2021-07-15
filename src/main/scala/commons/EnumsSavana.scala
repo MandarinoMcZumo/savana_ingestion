@@ -1,6 +1,6 @@
 
-package org.svn.ingestion
-package com.savana.ingestion.commons
+package com.savana.ingestion
+package commons
 
 trait EnumsSavana {
 

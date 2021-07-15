@@ -1,6 +1,6 @@
 
-package org.svn.ingestion
-package com.savana.ingestion.rpt
+package com.savana.ingestion
+package rpt
 
 class Reporting() extends ReportingCols {
 
@@ -15,7 +15,7 @@ class Reporting() extends ReportingCols {
   }
 
   def rptTable1Creation(): Unit ={
-    println("REPORTING PRINT")
+    log.info("REPORTING PRINT")
 
   }
   def rptTable2Creation(): Unit ={}

@@ -1,6 +1,6 @@
 
-package org.svn.ingestion
-package com.savana.ingestion.fnc
+package com.savana.ingestion
+package fnc
 
 class Functional() extends FunctionalCols {
 
@@ -16,7 +16,7 @@ class Functional() extends FunctionalCols {
   }
 
   def fncTable1Creation(): Unit ={
-    println("FUNCTIONAL PRINT")
+    log.info("FUNCTIONAL PRINT")
   }
   def fncTable2Creation(): Unit ={}
 

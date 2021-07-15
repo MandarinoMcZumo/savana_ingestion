@@ -1,7 +1,8 @@
-package org.svn.ingestion
+package com.savana.ingestion
 
 
 import com.savana.ingestion.commons.CommonsSavana
+import com.savana.ingestion.SavanaMain.main
 
 import org.apache.log4j.{LogManager, Logger}
 import org.apache.spark.sql.SparkSession
@@ -23,7 +24,7 @@ class TestFullExecution extends CommonsSavana {
   @Test
   def fullExecution(): Unit = {
 //    spark.read.table("")
-//    main(Array(ExecParams.full))
+    main(Array(ExecParams.full))
 
 //    println(scala.tools.nsc.Properties.versionString)
     //val filePath = "C:/t/0MATERIAL_ATTR.CSV"

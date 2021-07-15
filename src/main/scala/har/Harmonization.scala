@@ -1,6 +1,6 @@
 
-package org.svn.ingestion
-package com.savana.ingestion.har
+package com.savana.ingestion
+package har
 
 class Harmonization() extends HarmonizationCols {
 
@@ -16,7 +16,7 @@ class Harmonization() extends HarmonizationCols {
   }
 
   def harTable1Creation(): Unit ={
-    println("HARMONIZATION PRINT")
+    log.info("HARMONIZATION PRINT")
 
   }
   def harTable2Creation(): Unit ={}
