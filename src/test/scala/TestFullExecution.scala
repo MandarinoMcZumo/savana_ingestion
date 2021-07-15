@@ -1,6 +1,3 @@
-package com.savana.ingestion
-
-
 import com.savana.ingestion.commons.CommonsSavana
 import com.savana.ingestion.SavanaMain.main
 

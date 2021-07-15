@@ -6,9 +6,6 @@ import com.savana.ingestion.har.Harmonization
 import com.savana.ingestion.rpt.Reporting
 import org.apache.log4j.{Level, Logger}
 
-import scala.language.implicitConversions
-
-
 object SavanaMain extends CommonsSavana {
 
   val logger: Logger = Logger.getLogger(getClass.getName)
@@ -35,15 +32,15 @@ object SavanaMain extends CommonsSavana {
     }
   }
 
-  def harmonization(): Unit ={
+  def harmonization(): Unit = {
     new Harmonization().execution()
   }
 
-  def functional(): Unit ={
+  def functional(): Unit = {
     new Functional().execution()
   }
 
-  def reporting(): Unit ={
+  def reporting(): Unit = {
     new Reporting().execution()
   }
 
