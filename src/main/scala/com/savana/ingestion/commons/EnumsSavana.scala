@@ -21,6 +21,7 @@ trait EnumsSavana {
   object Col extends Enumeration {
     val directParents: String = Value("direct_parents").toString
     val directChildren: String = Value("direct_children").toString
+    val isA: String = Value("is_a").toString
 
   }
 
@@ -45,6 +46,7 @@ trait EnumsSavana {
     val isRelatedTo: String = Value("is_related_to").toString
     val isMentionedIn: String = Value("is_mentioned_in").toString
     val appliesTo: String = Value("applies_to").toString
+    val isA: String = Value("is_a").toString
 
   }
 
