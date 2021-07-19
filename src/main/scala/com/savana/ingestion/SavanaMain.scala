@@ -5,6 +5,7 @@ import com.savana.ingestion.fnc.Functional
 import com.savana.ingestion.har.Harmonization
 import com.savana.ingestion.rpt.Reporting
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
 
 object SavanaMain extends CommonsSavana {
 

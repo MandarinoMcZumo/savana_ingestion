@@ -1,14 +1,16 @@
 import com.savana.ingestion.commons.CommonsSavana
 import com.savana.ingestion.SavanaMain.main
-
 import org.apache.log4j.{LogManager, Logger}
 import org.apache.spark.sql.SparkSession
-import org.junit.Test
+import org.junit.{BeforeClass, Test}
+
+import java.io.File
+import scala.reflect.io.Directory
 
 
 class TestFullExecution extends CommonsSavana {
 
-  val spark: SparkSession =
+  val testSpark: SparkSession =
     SparkSession.builder().master("local")
       .appName("spark session")
       .config("spark.sql.shuffle.partitions", "3")
@@ -25,19 +27,20 @@ class TestFullExecution extends CommonsSavana {
 
 //    println(scala.tools.nsc.Properties.versionString)
     //val filePath = "C:/t/0MATERIAL_ATTR.CSV"
-    val filePath = "C:/t/sales_with_errors_in_separator.csv_WITH_PIPE"
+//    val filePath = "C:/t/sales_with_errors_in_separator.csv_WITH_PIPE"
 
+//    val df = spark.read.options(Map("delimiter"->"|")).csv(filePath)
 
-    val spark: SparkSession =
-      SparkSession.builder().master("local")
-        .appName("spark session")
-        .config("spark.sql.shuffle.partitions", "3")
-        .getOrCreate()
-
-    val df = spark.read.options(Map("delimiter"->"|")).csv(filePath)
-
-    df.show()
+//    df.show()
   }
 
+}
+
+object TestFullExecution extends CommonsSavana {
+
+  @BeforeClass
+  def testInitialization(): Unit = {
+    new Directory(new File("spark-warehouse")).deleteRecursively()
+  }
 
 }
