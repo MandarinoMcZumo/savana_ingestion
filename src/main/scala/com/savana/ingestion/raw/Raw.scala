@@ -4,13 +4,13 @@ import org.apache.spark.sql.functions.{col, datediff, explode}
 
 class Raw() extends RawCols {
 
-    /**
-      * Method to execute different execution steps
-      */
-    def execution(): Unit ={
-      val rawFunctions = Seq("apparitionsRawData", "conceptsRawData")
-      rawFunctions.par.foreach(function => this call function)
-    }
+  /**
+    * Method to execute different execution steps
+    */
+  def execution(): Unit = {
+    val rawFunctions = Seq("apparitionsRawData", "conceptsRawData")
+    rawFunctions.par.foreach(function => this call function)
+  }
 
   /**
     * Method to read the apparitions raw file and calculate the field patient_days_age
@@ -24,7 +24,7 @@ class Raw() extends RawCols {
     val apparitionsWithAge = apparitions
       .withColumn("patient_days_age", datediff(col("document_date"), col("birthdate")))
 
-    apparitionsWithAge.write.format("csv").mode("Overwrite").saveAsTable("apparitions")
+    apparitionsWithAge.write.format("csv").mode("Overwrite").saveAsTable(Tables.apparitions)
 
   }
 
@@ -43,9 +43,9 @@ class Raw() extends RawCols {
       .withColumn(Col.directChildren + "_flat", explode(col(Col.directChildren + "_fixed")))
       .withColumn(Col.directParents + "_flat", explode(col(Col.directParents + "_fixed")))
 
-    flattenConcepts.write.format("parquet").mode("Overwrite").saveAsTable("concepts")
+    flattenConcepts.write.format("parquet").mode("Overwrite").saveAsTable(Tables.concepts)
   }
 
 
-  }
+}
 

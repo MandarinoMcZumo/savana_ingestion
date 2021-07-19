@@ -47,7 +47,7 @@ class Harmonization() extends HarmonizationCols {
       .where(col(Col.directParents + "_flat") =!= Com.empty && col(Col.directChildren + "_flat") =!= Com.empty)
 
     val isA = baseRel
-      .select(isACols:_ *)
+      .select(isACols: _ *)
       .distinct()
       .where(col(Col.isA) =!= Com.empty)
 

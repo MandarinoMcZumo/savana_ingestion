@@ -58,7 +58,7 @@ class TestFullExecution extends CommonsSavana {
     val patientID: String = "5487589844736575979"
 
     val rawConceptCount = rawConcepts.count()
-    val rawApparitionCount = rawConcepts.count()
+    val rawApparitionCount = rawApparitions.count()
     val conceptCount = concept.where(col("concept_id") === conceptID).count()
     val documentCount = document.where(col("document_id") === docID).count()
     val patientCount = patient.where(col("patient_id") === patientID).count()

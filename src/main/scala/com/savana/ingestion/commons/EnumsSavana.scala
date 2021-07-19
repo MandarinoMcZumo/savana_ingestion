@@ -2,7 +2,7 @@
 package com.savana.ingestion
 package commons
 
-import org.apache.spark.sql.types.{StringType, StructField, StructType, ArrayType, IntegerType}
+import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
 trait EnumsSavana {
   object Path extends Enumeration {
@@ -52,7 +52,7 @@ trait EnumsSavana {
 
   object Schema extends Enumeration {
 
-    val apparition = StructType(Array(
+    val apparition: StructType = StructType(Array(
       StructField("document_date", StringType, true),
       StructField("patient_id", StringType, true),
       StructField("gender", StringType, true),
