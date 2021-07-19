@@ -4,8 +4,7 @@ package har
 
 import com.savana.ingestion.commons.UtilsSavana
 import org.apache.spark.sql.Column
-import org.apache.spark.sql.functions.{col, length, regexp_replace, substring}
-import org.apache.spark.sql.types.IntegerType
+import org.apache.spark.sql.functions.{col}
 
 class HarmonizationCols extends UtilsSavana {
 

@@ -10,12 +10,12 @@ trait EnumsSavana {
     val outputTable: String = Value("C:/svn_output/").toString
     val raw: String = outputTable + "raw/"
     val har: String = outputTable + "har/"
-    val fnc: String = outputTable + "fnc/"
 
   }
 
   object Com extends Enumeration {
     val empty: String = ""
+    val escapedPipe: String = "\\|"
   }
 
   object Col extends Enumeration {
@@ -26,23 +26,30 @@ trait EnumsSavana {
 
   object ExecParams extends Enumeration {
     val full: String = Value("full").toString
+    val raw: String = Value("raw").toString
     val har: String = Value("har").toString
-    val fnc: String = Value("fnc").toString
-    val rpt: String = Value("rpt").toString
   }
 
-  object Tables extends Enumeration {
+  object Files extends Enumeration {
     val apparitions: String = Value("apparitions_table.csv").toString
     val concepts: String = Value("concepts_table.csv").toString
   }
 
+  object Tables extends Enumeration {
+    val apparitions: String = Value("apparitions").toString
+    val concepts: String = Value("concepts").toString
+    val patient: String = Value("patient").toString
+    val document: String = Value("document").toString
+    val concept: String = Value("concept").toString
+    val isARelationship: String = Value("is_a_relationship").toString
+    val isRelatedTo: String = Value("is_related_to").toString
+    val isMentionedIn: String = Value("is_mentioned_in").toString
+    val appliesTo: String = Value("applies_to").toString
+
+  }
+
   object Schema extends Enumeration {
-    val concept = StructType(Array(
-      StructField("concept_id", StringType, true),
-      StructField("direct_parents", ArrayType(IntegerType), true),
-      StructField("direct_children", ArrayType(IntegerType), true),
-      StructField("fsn", StringType, true))
-    )
+
     val apparition = StructType(Array(
       StructField("document_date", StringType, true),
       StructField("patient_id", StringType, true),
@@ -53,19 +60,5 @@ trait EnumsSavana {
     )
 
   }
-
-  /*
-  object Har extends Enumeration {
-    val customers: String = Value(com.savana.ingestion.har(Regions.master_data).concat("customers")).toString
-  }
-
-  object Fnc extends Enumeration {
-    val customers: String = Value(com.savana.ingestion.fnc(Regions.master_data).concat("customers")).toString
-  }
-
-  object Rpt extends Enumeration {
-    val customers: String = Value(com.savana.ingestion.rpt(Regions.master_data).concat("customers")).toString
-  }
-  */
 
 }
