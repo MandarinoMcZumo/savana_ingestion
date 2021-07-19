@@ -12,6 +12,9 @@ class Raw() extends RawCols {
       rawFunctions.par.foreach(function => this call function)
     }
 
+  /**
+    * Method to read the apparitions raw file and calculate the field patient_days_age
+    */
   def apparitionsRawData(): Unit = {
     val apparitions = spark.read.option("header", "true")
       .schema(Schema.apparition)
@@ -25,6 +28,10 @@ class Raw() extends RawCols {
 
   }
 
+  /**
+    * Method to read the concepts raw file, fix the array values (fields direct_children and direct_parents
+    * removing the initial and ending [] and turning the data type into a Spark Array
+    */
   def conceptsRawData(): Unit = {
     val concepts = spark.read.option("header", "true").option("infer_schema", "true")
       .format("csv").load(Path.inputTable + Files.concepts)

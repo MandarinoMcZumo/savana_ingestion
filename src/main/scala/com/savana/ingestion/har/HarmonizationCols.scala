@@ -38,4 +38,8 @@ class HarmonizationCols extends UtilsSavana {
   val appliesToCols: Seq[Column] =
     Seq(col("document_id"),
       col("patient_id"))
+
+  val isACols: Seq[Column] =
+    Seq(col("concept_id"),
+      col(Col.directParents + "_flat").as(Col.isA))
 }

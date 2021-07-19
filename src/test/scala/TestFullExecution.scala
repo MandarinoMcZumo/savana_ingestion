@@ -22,16 +22,17 @@ class TestFullExecution extends CommonsSavana {
 
   @Test
   def fullExecution(): Unit = {
-//    spark.read.table("")
     main(Array(ExecParams.full))
+    val rawApparitions = testSpark.read.option("header", "true")
+      .schema(Schema.apparition)
+      .format("csv")
+      .load(Path.inputTable + Files.apparitions)
 
-//    println(scala.tools.nsc.Properties.versionString)
-    //val filePath = "C:/t/0MATERIAL_ATTR.CSV"
-//    val filePath = "C:/t/sales_with_errors_in_separator.csv_WITH_PIPE"
+    val rawConcepts = testSpark.read.option("header", "true").option("infer_schema", "true")
+      .format("csv").load(Path.inputTable + Files.concepts)
 
-//    val df = spark.read.options(Map("delimiter"->"|")).csv(filePath)
 
-//    df.show()
+
   }
 
 }
@@ -41,6 +42,8 @@ object TestFullExecution extends CommonsSavana {
   @BeforeClass
   def testInitialization(): Unit = {
     new Directory(new File("spark-warehouse")).deleteRecursively()
+    new Directory(new File(Path.outputTable)).deleteRecursively()
+
   }
 
 }
