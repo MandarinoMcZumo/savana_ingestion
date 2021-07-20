@@ -35,8 +35,8 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 Next items need to be installed and properly configured to ensure the tests work without any problem:
 * sbt
-* Java SDK 1.8
-* Scala 2.12.13
+* Java JDK 1.8
+* Spark 3.1.1 with Hadoop 2.7
 
 Before executing any test the following command must be executed
 ```
@@ -45,7 +45,7 @@ sbt compile
 
 ## Running the tests
 ```
-sbt clean test
+sbt test
 ```
 
 ## Output
