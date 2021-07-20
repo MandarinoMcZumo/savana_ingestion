@@ -25,7 +25,7 @@ class UtilsSavana extends CommonsSavana {
   }
 
   /**
-    * Selects the given columns for the selected base table, removes duplicates and writes the output with the given name.
+    * Selects the given columns for the selected base table, and writes the output with the given name.
     *
     * @param baseTable  Name of the base table (apparitions or concepts)
     * @param cols       Columns to select
@@ -41,7 +41,7 @@ class UtilsSavana extends CommonsSavana {
   }
 
   /**
-    * Joins the two base tables, selects and removes duplicates. Saves the table with the given name.
+    * Joins the two base tables and selects the given columns. Saves the table with the given name.
     *
     * @param joinColumn Name of the column to join ("concept_id")
     * @param cols       Columns to select
