@@ -1,0 +1,11 @@
+concept_id,direct_parents,direct_children,fsn
+0,[],[1|2|3],Concepto médico
+1,[0],[104|202],Enfermedad
+2,[0],[406],Movimiento involuntario
+3,[0],[406],Hallazgo clínico
+104,[1],[105],Úlcera
+105,[104],[],Úlcera tórpida
+202,[1],[203],Quiste
+203,[202],[],Quiste ginecológico
+406,[2|3],[406|407],Temblor
+407,[406],[],Temblor cefálico

@@ -1,9 +1,8 @@
 package com.savana.ingestion
 
 import com.savana.ingestion.commons.CommonsSavana
-import com.savana.ingestion.fnc.Functional
 import com.savana.ingestion.har.Harmonization
-import com.savana.ingestion.rpt.Reporting
+import com.savana.ingestion.fnc.Functional
 import org.apache.log4j.{Level, Logger}
 
 object SavanaMain extends CommonsSavana {
@@ -16,32 +15,26 @@ object SavanaMain extends CommonsSavana {
     Logger.getLogger("akka").setLevel(Level.ERROR)
     args match {
       case Array(ExecParams.full) =>
-        harmonization()
-        functional()
-        reporting()
+        har()
+        fnc()
+
       case Array(ExecParams.har) =>
-        harmonization()
+        har()
       case Array(ExecParams.fnc) =>
-        functional()
-      case Array(ExecParams.rpt) =>
-        reporting()
+        fnc()
       case _ =>
         logger.error("ERROR: Invalid option.")
         throw new IllegalArgumentException("Wrong arguments. Usage: \n" +
-          "TemplateMain full | har | fun | rpt")
+          "SavanaMain full | har | fnc ")
     }
   }
 
-  def harmonization(): Unit = {
+  def har(): Unit = {
     new Harmonization().execution()
   }
 
-  def functional(): Unit = {
+  def fnc(): Unit = {
     new Functional().execution()
-  }
-
-  def reporting(): Unit = {
-    new Reporting().execution()
   }
 
 
