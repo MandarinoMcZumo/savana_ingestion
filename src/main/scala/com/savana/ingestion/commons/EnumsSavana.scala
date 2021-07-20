@@ -27,8 +27,8 @@ trait EnumsSavana {
 
   object ExecParams extends Enumeration {
     val full: String = Value("full").toString
-    val raw: String = Value("raw").toString
     val har: String = Value("har").toString
+    val fnc: String = Value("fnc").toString
   }
 
   object Files extends Enumeration {

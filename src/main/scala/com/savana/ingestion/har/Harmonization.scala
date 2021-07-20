@@ -1,79 +1,51 @@
+package com.savana.ingestion.har
 
-package com.savana.ingestion
-package har
-
-import org.apache.spark.sql.functions._
+import org.apache.spark.sql.functions.{col, datediff, explode}
 
 class Harmonization() extends HarmonizationCols {
-
 
   /**
     * Method to execute different execution steps
     */
   def execution(): Unit = {
-    val harFunctions = Seq("patient",
-      "document",
-      "concept",
-      "isARelationship",
-      "isRelatedTo",
-      "isMentionedIn",
-      "appliesTo")
-    harFunctions.par.foreach(harFunction => this call harFunction)
-
-  }
-
-
-  def patient(): Unit = {
-    selectAndWrite(Tables.apparitions, patientCols, Tables.patient)
-  }
-
-  def document(): Unit = {
-    selectAndWrite(Tables.apparitions, documentCols, Tables.document)
-  }
-
-  def concept(): Unit = {
-    selectAndWrite(Tables.concepts, conceptCols, Tables.concept)
+    val harFunctions = Seq("apparitionsRawData", "conceptsRawData")
+    harFunctions.par.foreach(function => this call function)
   }
 
   /**
-    * Selects, filters and saves all the relationships between concepts
+    * Method to read the apparitions raw file and calculate the field patient_days_age
     */
-  def isARelationship(): Unit = {
-    val baseRel = spark.read.table(Tables.concepts)
-
-    val allRel = baseRel
-      .select(isRelCols: _*)
-      .distinct()
-      .where(col(Col.directParents + "_flat") =!= Com.empty && col(Col.directChildren + "_flat") =!= Com.empty)
-
-    val isA = baseRel
-      .select(isACols: _ *)
-      .distinct()
-      .where(col(Col.isA) =!= Com.empty)
-
-    allRel.write.mode("append")
+  def apparitionsRawData(): Unit = {
+    val apparitions = spark.read.option("header", "true")
+      .schema(Schema.apparition)
       .format("csv")
-      .option("header", true)
-      .save(Path.outputTable + Tables.isARelationship)
+      .load(Path.inputTable + Files.apparitions)
 
-    isA.write.mode("append")
-      .format("csv")
-      .option("header", true)
-      .save(Path.outputTable + Tables.isA)
+    val apparitionsWithAge = apparitions
+      .withColumn("patient_days_age", datediff(col("document_date"), col("birthdate")))
+
+    apparitionsWithAge.write.format("csv").mode("Overwrite").saveAsTable(Tables.apparitions)
 
   }
 
-  def isRelatedTo(): Unit = {
-    joinSelectAndWrite(Seq("concept_id"), relToCols, Tables.isRelatedTo)
-  }
+  /**
+    * Method to read the concepts raw file, fix the array values (fields direct_children and direct_parents
+    * removing the initial and ending [] and turning the data type into a Spark Array
+    */
+  def conceptsRawData(): Unit = {
+    val concepts = spark.read.option("header", "true").option("infer_schema", "true")
+      .format("csv").load(Path.inputTable + Files.concepts)
 
-  def isMentionedIn(): Unit = {
-    joinSelectAndWrite(Seq("concept_id"), isMentCols, Tables.isMentionedIn)
-  }
+    val conceptsFixedChildren = fixArrayColumn(concepts, Col.directChildren, Com.escapedPipe)
+    val conceptsFixed = fixArrayColumn(conceptsFixedChildren, Col.directParents, Com.escapedPipe)
 
-  def appliesTo(): Unit = {
-    selectAndWrite(Tables.apparitions, appliesToCols, Tables.appliesTo)
+    val flattenConcepts = conceptsFixed
+      .withColumn(Col.directChildren + "_flat", explode(col(Col.directChildren + "_fixed")))
+      .withColumn(Col.directParents + "_flat", explode(col(Col.directParents + "_fixed")))
+
+    flattenConcepts.write.format("parquet").mode("Overwrite").saveAsTable(Tables.concepts)
   }
 
 
 }
+
