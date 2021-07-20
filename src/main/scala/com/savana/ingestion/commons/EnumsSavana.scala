@@ -6,8 +6,8 @@ import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
 trait EnumsSavana {
   object Path extends Enumeration {
-    val inputTable: String = Value("C:/svn/").toString
-    val outputTable: String = Value("C:/svn_output/").toString
+    val inputTable: String = Value("src/test/resources/").toString
+    val outputTable: String = Value("src/test/resources/output/").toString
     val raw: String = outputTable + "raw/"
     val har: String = outputTable + "har/"
 
