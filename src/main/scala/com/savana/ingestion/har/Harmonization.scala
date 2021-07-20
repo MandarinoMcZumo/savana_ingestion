@@ -39,10 +39,6 @@ class Harmonization() extends HarmonizationCols {
     val conceptsFixedChildren = fixArrayColumn(concepts, Col.directChildren, Com.escapedPipe)
     val conceptsFixed = fixArrayColumn(conceptsFixedChildren, Col.directParents, Com.escapedPipe)
 
-//    val flattenConcepts = conceptsFixed
-//      .withColumn(Col.directChildren + "_flat", explode(col(Col.directChildren + "_fixed")))
-//      .withColumn(Col.directParents + "_flat", explode(col(Col.directParents + "_fixed")))
-
     conceptsFixed.write.format("parquet").mode("Overwrite").saveAsTable(Tables.concepts)
   }
 
