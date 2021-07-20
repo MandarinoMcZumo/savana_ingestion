@@ -32,7 +32,7 @@ class UtilsSavana extends CommonsSavana {
     * @param outputName Name of the final table
     */
   def selectAndWrite(baseTable: String, cols: Seq[Column], outputName: String): Unit = {
-    val df = spark.read.table(baseTable).select(cols: _*).distinct()
+    val df = spark.read.table(baseTable).select(cols: _*)
     df.write.mode("append")
       .format("csv")
       .option("header", value = true)
@@ -51,7 +51,7 @@ class UtilsSavana extends CommonsSavana {
     val apparitions = spark.read.table(Tables.apparitions)
     val concepts = spark.read.table(Tables.concepts)
 
-    val joinedDF = apparitions.join(concepts, joinColumn, "inner").select(cols: _*).distinct()
+    val joinedDF = apparitions.join(concepts, joinColumn, "inner").select(cols: _*)
     joinedDF.write.mode("append")
       .format("csv")
       .option("header", value = true)

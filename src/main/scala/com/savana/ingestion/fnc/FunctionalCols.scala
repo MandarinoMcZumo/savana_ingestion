@@ -20,9 +20,6 @@ class FunctionalCols extends UtilsSavana {
     Seq(col("concept_id"),
       col("fsn"))
 
-  val isRelCols: Seq[Column] =
-    Seq(col(Col.directParents + "_flat"),
-      col(Col.directChildren + "_flat"))
 
   val relToCols: Seq[Column] =
     Seq(col("concept_id"),
@@ -41,5 +38,10 @@ class FunctionalCols extends UtilsSavana {
 
   val isACols: Seq[Column] =
     Seq(col("concept_id"),
-      col(Col.directParents + "_flat").as(Col.isA))
+      col(Col.isA))
+
+  val allRelCols: Seq[Column] =
+    Seq(col("concept_id"),
+      col(Col.directParents + "_fixed"),
+      col(Col.directChildren + "_fixed"))
 }

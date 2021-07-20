@@ -39,28 +39,18 @@ class Functional() extends FunctionalCols {
     * Selects, filters and saves all the relationships between concepts
     */
   def isARelationship(): Unit = {
-    val baseRel = spark.read.table(Tables.concepts)
-
-    val allRel = baseRel
-      .select(isRelCols: _*)
-      .distinct()
-      .where(col(Col.directParents + "_flat") =!= Com.empty && col(Col.directChildren + "_flat") =!= Com.empty)
+    val baseRel = spark.read.table(Tables.concepts).select(allRelCols: _ *)
 
     val isA = baseRel
+      .withColumn(Col.isA, explode(col(Col.directParents + "_fixed")))
       .select(isACols: _ *)
-      .distinct()
       .where(col(Col.isA) =!= Com.empty)
 
-    allRel.write.mode("append")
-      .format("csv")
-      .option("header", true)
-      .save(Path.outputTable + Tables.isARelationship)
 
     isA.write.mode("append")
       .format("csv")
       .option("header", true)
       .save(Path.outputTable + Tables.isA)
-
   }
 
   def isRelatedTo(): Unit = {
